@@ -1,0 +1,19 @@
+[{1 :bakpakin/fennel.vim
+  :lazy true
+  :ft [:fennel]}
+ {1 :wlangstroth/vim-racket
+  :lazy true
+  :ft [:racket]}
+ {1 :fatih/vim-go
+  :lazy true
+  :build ":GoUpdateBinaries"
+  :ft [:go]}
+ {1 :hashivim/vim-terraform
+  :lazy true
+  :ft [:terraform]}
+ {1 :habamax/vim-godot
+  :lazy true
+  :ft [:gdscript]}
+ {1 :PotatoesMaster/i3-vim-syntax
+  :lazy true
+  :ft [:i3]}]

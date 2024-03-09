@@ -1,0 +1,98 @@
+socket_path: ${HOME}/.config/relevantd/config.yaml
+
+display:
+  show_duration: 5s
+  refresh_interval: 500ms
+
+cues:
+- name: music
+  kind: shell
+  description: current song from playerctl
+  default: "nothing playing"
+  trigger:
+    on_interval: 1s
+  interrupt:
+    enabled: true
+    duration: 2s
+  color: "#cc241d"
+  command: bash
+  args:
+  - -c
+  - >
+    echo -n $(playerctl --player=playerctld metadata --format '{{ lc(status) }}: {{ artist }} - {{ title }}')
+
+- name: volume
+  kind: shell
+  description: current volume for the active sink
+  trigger:
+    on_interval: 1s
+  command: bash
+  args:
+  - -c
+  - >
+    echo vol $(pactl get-sink-volume $(pactl get-default-sink) | awk "{print \$5}" | tr -d "[ %]")%
+
+- name: weather
+  kind: shell
+  description: current weather
+  trigger:
+    on_interval: 5m
+  command: bash
+  args:
+  - -i
+  - -c
+  - >
+    echo -n "outside: $(weather get)c"
+
+- name: clock
+  kind: time
+  description: current time
+  trigger:
+    on_interval: 1s
+  format: Jan 2 15:04
+  short_format: 15:04
+
+- name: k8s-context
+  kind: shell
+  description: current k8s cluster and namespace
+  trigger:
+    on_file_modified: "/home/kyle/.kube/config"
+  command: bash
+  args: 
+  - -i
+  - -c
+  - >
+    _kube_ps1_get_context_ns && echo -n "k8s ${KUBE_PS1_NAMESPACE}@${KUBE_PS1_CONTEXT}"
+
+- name: battery
+  kind: shell
+  description: current battery percentage
+  trigger:
+    on_interval: 30s
+  command: bash
+  args: 
+  - -i
+  - -c
+  - >
+    stat="bat";
+    if [[ $(cat /sys/class/power_supply/AC/online) == "1" ]]; then stat="ac"; fi;
+    echo -n "${stat} $(cat /sys/class/power_supply/BAT0/capacity) ($(cat /sys/class/power_supply/BAT1/capacity))"
+
+views:
+- name: song-and-time
+  cues: 
+  - k8s-context
+  - weather
+  - volume
+  - battery
+  - clock
+  default: true
+  separator: "|"
+  padding: 12
+
+- name: coding-view
+  cues: 
+  - k8s-context
+  - music
+  - volume
+  - clock
