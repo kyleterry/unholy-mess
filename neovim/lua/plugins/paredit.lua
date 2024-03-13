@@ -2,10 +2,14 @@
 local _local_1_ = require("nfnl.module")
 local autoload = _local_1_["autoload"]
 local nvim = autoload("nvim")
-local lisps = {"scheme", "lisp", "clojure", "fennel", "racket"}
+local fun = require("config.fun")
+local lisps = {"scheme", "lisp", "fennel", "racket", "clojure"}
 local function _2_()
   local autopairs = require("nvim-autopairs")
-  return autopairs.setup({ignore_next_char = "", enable_check_bracket_line = false})
+  autopairs.setup({ignore_next_char = "", enable_check_bracket_line = false})
+  do end (fun.head(autopairs.get_rules("'")))["not_filetypes"] = lisps
+  fun.head(autopairs.get_rules("`"))["not_filetypes"] = lisps
+  return nil
 end
 local function _3_()
   local paredit = require("nvim-paredit")

@@ -5,17 +5,12 @@
   :dependencies [:nvim-telescope/telescope-ui-select.nvim
                  :nvim-lua/popup.nvim
                  :nvim-lua/plenary.nvim]
-  :init (fn []
-          (nvim.set_keymap :n :<leader>ff ":lua require('telescope.builtin').find_files()<CR>" {:noremap true :desc "[f]ind [f]iles"})
-          (nvim.set_keymap :n :<leader>fg ":lua require('telescope.builtin').live_grep()<CR>" {:noremap true :desc "[f]ind text with [g]rep"})
-          (nvim.set_keymap :n :<leader>fb ":lua require('telescope.builtin').buffers()<CR>" {:noremap true :desc "[f]ind open [b]uffers"})
-          (nvim.set_keymap :n :<leader>fh ":lua require('telescope.builtin').help_tags()<CR>" {:noremap true :desc "[f]ind [h]elp docs"})
-          (nvim.set_keymap :n :<leader>fn ":lua require('telescope.builtin').find_files({cwd = vim.fn.stdpath 'config'})<CR>" {:noremap true :desc "[f]ind [n]eovim files"})
-          (nvim.set_keymap :n :<leader>ft ":TodoTelescope<CR>" {:noremap true :desc "[f]ind [t]odo comments"}))
   :config (fn []
             (let [telescope (require :telescope)
+                  builtin (require :telescope.builtin)
                   themes (require :telescope.themes)
                   actions (require :telescope.actions)
+                  km vim.keymap.set
                   mappings {:i {:<esc> actions.close}}]
               (telescope.setup {:defaults {:file_ignore_patterns ["node_modules"]
                                            :vimgrep_arguments ["rg"
@@ -35,4 +30,15 @@
                                                                       "--iglob"
                                                                       "!.git"
                                                                       "--hidden"]}}})
+              (km :n :<leader>ff builtin.find_files {:noremap true :desc "[f]ind [f]iles"})
+              (km :n :<leader>fg builtin.live_grep {:noremap true :desc "[f]ind text with [g]rep"})
+              (km :n :<leader>fb builtin.buffers {:noremap true :desc "[f]ind open [b]uffers"})
+              (km :n :<leader>fh builtin.help_tags {:noremap true :desc "[f]ind [h]elp docs"})
+              (km :n :<leader>fn (fn []
+                                   (builtin.find_files {:cwd (vim.fn.stdpath :config)}))
+                                 {:noremap true :desc "[f]ind [n]eovim files"})
+              (km :n :<leader>ft vim.cmd.TodoTelescope {:noremap true :desc "[f]ind [t]odo comments"})
+              (km :n :<leader>fs (fn []
+                                   (builtin.grep_string {:search (vim.fn.input "grep > ")}))
+                                 {:noremap true :desc "[f]ind text with [s]tring"})
               (telescope.load_extension "ui-select")))}]

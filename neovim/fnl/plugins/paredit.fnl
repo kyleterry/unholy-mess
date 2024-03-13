@@ -1,7 +1,9 @@
 (local {: autoload} (require :nfnl.module))
 (local nvim (autoload :nvim))
 
-(local lisps [:scheme :lisp :clojure :fennel :racket])
+(local fun (require :config.fun))
+
+(local lisps [:scheme :lisp :fennel :racket :clojure])
 
 ; (fn lsp-indent [event opts]
 ;   (let [traversal (require :nvim-paredit.utils.traversal)
@@ -26,7 +28,9 @@
   :config (fn []
             (let [autopairs (require :nvim-autopairs)]
               (autopairs.setup {:ignore_next_char ""
-                                :enable_check_bracket_line false})))}
+                                :enable_check_bracket_line false})
+              (tset (fun.head (autopairs.get_rules "'")) :not_filetypes lisps)
+              (tset (fun.head (autopairs.get_rules "`")) :not_filetypes lisps)))}
 
  {1 :julienvincent/nvim-paredit
   :lazy false

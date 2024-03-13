@@ -10,6 +10,8 @@
       {:backup false
        :writebackup false
        :swapfile false
+       :undodir (.. (vim.fn.stdpath :cache) "/undo")
+       :undofile true
        :title true
        :expandtab true
        :tabstop 2

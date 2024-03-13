@@ -10,11 +10,6 @@
                                 :title "Diagnostic:"
                                 :title_pos "left"}})
 
-(let [signs {:Error " " :Warn " " :Hint " " :Info " "}]
-  (each [type icon (pairs signs)]
-    (let [hl (.. "DiagnosticSign" type)]
-      (vim.fn.sign_define hl {:text icon :texthl hl :numhl hl}))))
-
 (map :n
      :<space>e
      #(vim.diagnostic.open_float 0 {:scope "line"

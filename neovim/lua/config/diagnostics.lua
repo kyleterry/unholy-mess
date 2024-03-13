@@ -1,13 +1,6 @@
 -- [nfnl] Compiled from fnl/config/diagnostics.fnl by https://github.com/Olical/nfnl, do not edit.
 vim.diagnostic.config({signs = true, float = {header = "", prefix = "", source = "if_many", border = "single", title = "Diagnostic:", title_pos = "left", focusable = false}, virtual_text = false})
 do
-  local signs = {Error = "\239\153\153 ", Warn = "\239\148\169 ", Hint = "\239\160\181 ", Info = "\239\145\137 "}
-  for type, icon in pairs(signs) do
-    local hl = ("DiagnosticSign" .. type)
-    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
-  end
-end
-do
   local opts_1_auto
   do
     local tbl_14_auto = {}

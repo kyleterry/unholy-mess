@@ -1,16 +1,30 @@
 (local {: autoload} (require :nfnl.module))
-(local nvim (autoload :nvim))
+  (local nvim (autoload :nvim))
+
+(fn has-words-before []
+  (let [(line col) (unpack (vim.api.nvim_win_get_cursor 0))]
+    (and (not= col 0)
+         (= (: (: (. (vim.api.nvim_buf_get_lines 0 (- line 1) line true) 1) :sub col col) :match "%s") nil))))
 
 (local cmp-deps [:hrsh7th/cmp-nvim-lsp
                  :hrsh7th/cmp-buffer
                  :hrsh7th/cmp-path
                  :hrsh7th/cmp-cmdline
                  :hrsh7th/cmp-vsnip
+                 :hrsh7th/cmp-nvim-lua
                  :L3MON4D3/LuaSnip
                  :saadparwaiz1/cmp_luasnip
                  :PaterJason/cmp-conjure])
-
-[{1 :L3MON4D3/LuaSnip
+[{1 :zbirenbaum/copilot.lua
+  :dependencies [:zbirenbaum/copilot-cmp]
+  :event :InsertEnter
+  :config (fn []
+            (let [copilot (require :copilot)
+                  copilot-cmp (require :copilot_cmp)]
+              (copilot.setup {})
+              (copilot-cmp.setup {})))}
+ {1 :L3MON4D3/LuaSnip
+  :lazy false
   :dependencies [:rafamadriz/friendly-snippets]
   :build "make install_jsregexp"
   :opts {:history true
@@ -23,40 +37,53 @@
   :config (fn []
             (let [cmp (require :cmp)
                   cmp-sources (cmp.config.sources
-                                [{:group_index 2 :name :nvim_lsp}
+                                [
+                                 {:name :copilot :group_index 2}
+                                 {:name :nvim_lsp :group_index 2}
                                  {:name :luasnip}
                                  {:name :conjure}
                                  {:name :nvim_lua}
                                  {:name :buffer}
                                  {:name :path}])
-                  cmp-src-menu-items {:copilot :copilot
-                                      :conjure :conjure
+                  cmp-src-menu-items {:conjure :conjure
                                       :nvim_lsp :lsp
                                       :luasnip :snippet
                                       :buffer :buffer}
                   luasnip (require :luasnip)]
               (cmp.setup
                 {:snippet {:expand (fn [args]
-                                     (luasnip.expand args.body))}
+                                     (luasnip.lsp_expand args.body))}
                  :mapping {:<c-n> (cmp.mapping.select_next_item)
                            :<c-p> (cmp.mapping.select_prev_item)
                            :<c-b> (cmp.mapping.scroll_docs (- 4))
                            :<c-f> (cmp.mapping.scroll_docs 4)
                            :<c-space> (cmp.mapping.complete)
                            :<c-e> (cmp.mapping.close)
-                           "<c-y>" (cmp.mapping.confirm
-                                      {:behavior cmp.ConfirmBehavior.Insert
-                                       :select true})
+                           :<c-y> (cmp.mapping.confirm
+                                    {:behavior cmp.ConfirmBehavior.Insert
+                                     :select true})
+                           ; experimenting with better snippet argument jumping with ctrl-h and ctrl-l
+                           :<c-h> (cmp.mapping (fn [fallback]
+                                                 (if (luasnip.jumpable) (luasnip.jump -1)
+                                                     :else (fallback)))
+                                               {1 :i})
+                           :<c-l> (cmp.mapping (fn [fallback]
+                                                 (if (luasnip.jumpable) (luasnip.jump 1)
+                                                     :else (fallback)))
+                                               {1 :i})
                            :<tab> (cmp.mapping 
                                     (fn [fallback]
-                                      (if (luasnip.jumpable)
-                                        (luasnip.jump 1)
-                                        (fallback))))
+                                      (if (cmp.visible) (cmp.select_next_item)
+                                          (luasnip.expand_or_jumpable) (luasnip.expand_or_jump)
+                                          (has-words-before) (cmp.complete)
+                                          :else (fallback)))
+                                    {1 :i 2 :s})
                            :<s-tab> (cmp.mapping 
-                                    (fn [fallback]
-                                      (if (luasnip.jumpable)
-                                        (luasnip.jump -1)
-                                        (fallback))))}
+                                      (fn [fallback]
+                                        (if (cmp.visible) (cmp.select_prev_item)
+                                            (luasnip.jumpable) (luasnip.jump -1)
+                                            :else (fallback)))
+                                      {1 :i 2 :s})}
                  :sources cmp-sources
                  :formatting {:format (fn [entry item]
                                         (set item.menu
@@ -70,6 +97,30 @@
                                   :sources (cmp.config.sources
                                              [{:name :path}]
                                              [{:name :cmdline}])})))}
+ {1 :mfussenegger/nvim-lint
+  :event [:BufReadPre :BufNewFile]
+  :config (fn []
+            (let [lint (require :lint)
+                  lint-ag (vim.api.nvim_create_augroup :lint {:clear true})]
+              (set lint.linters_by_ft {:go [:golangcilint]
+                                       :fennel [:fennel]
+                                       :lua [:luacheck]
+                                       :sh [:shellcheck]
+                                       :bash [:shellcheck]
+                                       :nix [:nix]})
+              (vim.api.nvim_create_autocmd [:BufEnter :BufWritePost :InsertLeave]
+                {:group lint-ag
+                 :callback (fn []
+                            (lint.try_lint))})))}
+ {1 :stevearc/conform.nvim
+  :event [:BufReadPre :BufNewFile]
+  :config (fn []
+            (let [conform (require :conform)]
+              (conform.setup {:formatters_by_ft {:fennel [:fnlfmp]
+                                                 :lua [:stylua]}
+                              :format_on_save {:lsp_fallback true
+                                               :async false
+                                               :timeout_ms 500}})))}
  {1 :williamboman/mason.nvim
   :dependencies [:williamboman/mason-lspconfig.nvim
                  :nvimtools/none-ls.nvim
@@ -80,8 +131,8 @@
                   null-ls (require :null-ls)
                   mason-null-ls (require :mason-null-ls)]
               (mason.setup {})
-              (mason-lsp.setup {:ensure_installed [:lua_ls]})
-              (mason-null-ls.setup {:ensure_installed [:gofumpt :delve :goimports]})
+              (mason-lsp.setup {:ensure_installed [:lua_ls :gopls :nil_ls :bashls :terraformls]})
+              (mason-null-ls.setup {:ensure_installed [:gofumpt :delve :goimports :luacheck :shellcheck :tflint]})
               (null-ls.setup {})))}
  {1 :neovim/nvim-lspconfig
   :opts {}
@@ -92,20 +143,23 @@
                   lspfmt (require :lsp-format)
                   nset nvim.buf_set_keymap
                   opts {:noremap true} ; add :silent true if it's loud
+                  opts-with-desc (fn [desc] (do (set opts.desc desc) opts))
                   capabilities (cmplsp.default_capabilities (vim.lsp.protocol.make_client_capabilities))
                   on-attach (fn [client bufnr]
                               (do
                                 (lspfmt.on_attach client bufnr)
-                                (nset bufnr :n :gd ":lua vim.lsp.buf.definition()<CR>" (do (set opts.desc "go to definition") opts))
-                                (nset bufnr :n :gD ":lua vim.lsp.buf.declaration()<CR>" (do (set opts.desc "go to declaration") opts))
-                                (nset bufnr :n :gr ":lua vim.lsp.buf.references()<CR>" (do (set opts.desc "show references") opts))
-                                (nset bufnr :n :<leader>ds ":lua require('telescope.builtin').lsp_document_symbols()<cr>" (do (set opts.desc "show symbols") opts))
-                                (nset bufnr :n :K "<Cmd>lua vim.lsp.buf.hover()<CR>" (do (set opts.desc "lsp hover") opts))
-                                (nset bufnr :n :<A-k> "<Cmd>lua vim.lsp.buf.signature_help()<CR>" (do (set opts.desc "show signature help") opts))
-                                (nset bufnr :n :<space>a "<Cmd>lua vim.lsp.buf.format()<CR>" (do (set opts.desc "run code formatter") opts))))]
+                                (nset bufnr :n :<leader>rn ":lua vim.lsp.buf.rename()<CR>" (opts-with-desc "rename ident"))
+                                (nset bufnr :n :<leader>ca ":lua vim.lsp.buf.code_action()<CR>" (opts-with-desc "code action"))
+                                (nset bufnr :n :gd ":lua vim.lsp.buf.definition()<CR>" (opts-with-desc "go to definition"))
+                                (nset bufnr :n :gD ":lua vim.lsp.buf.declaration()<CR>" (opts-with-desc "go to declaration"))
+                                (nset bufnr :n :gr ":lua vim.lsp.buf.references()<CR>" (opts-with-desc "show references"))
+                                (nset bufnr :n :<leader>ds ":lua require('telescope.builtin').lsp_document_symbols()<cr>" (opts-with-desc "show symbols"))
+                                (nset bufnr :n :K "<Cmd>lua vim.lsp.buf.hover()<CR>" (opts-with-desc "lsp hover"))
+                                (nset bufnr :n :<a-k> "<Cmd>lua vim.lsp.buf.signature_help()<CR>" (opts-with-desc "show signature help"))
+                                (nset bufnr :n :<space>a "<Cmd>lua vim.lsp.buf.format()<CR>" (opts-with-desc "run code formatter"))))
+                  quick-setups [:lua_ls :bashls :terraformls :tflint]] ; these setups don't require config outside capabilities and on_attach
 
               (tset capabilities.textDocument.completion.completionItem :snippetSupport true)
-
               (lsp.fennel_language_server.setup
                 {:on_attach on-attach
                  :capabilities capabilities
@@ -139,4 +193,7 @@
                                     :completeUnimported true
                                     :semanticTokens true
                                     :staticcheck true}}
-                 :init_options {:usePlaceholders true}})))}]
+                 :init_options {:usePlaceholders true}})
+              (each [_ val (ipairs quick-setups)]
+                ((. lsp val :setup) {:capabilities capabilities
+                                     :on_attach on-attach}))))}]
