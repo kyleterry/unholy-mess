@@ -29,7 +29,18 @@
                                                                       "--files"
                                                                       "--iglob"
                                                                       "!.git"
-                                                                      "--hidden"]}}})
+                                                                      "--hidden"]
+                                                       :theme :ivy}
+                                          :buffers {:mappings {:i {:<c-d> actions.delete_buffer}}
+                                                    :previewer false
+                                                    :sort_lastused true
+                                                    :theme :ivy}
+                                          :live_grep {:theme :ivy}
+                                          :grep_string {:theme :ivy}
+                                          :help_tags {:theme :ivy}
+                                          :commands {:theme :ivy
+                                                     :previewer false}
+                                          :lsp_document_symbols {:theme :ivy}}})
               (km :n :<leader>ff builtin.find_files {:noremap true :desc "[f]ind [f]iles"})
               (km :n :<leader>fg builtin.live_grep {:noremap true :desc "[f]ind text with [g]rep"})
               (km :n :<leader>fb builtin.buffers {:noremap true :desc "[f]ind open [b]uffers"})
@@ -41,4 +52,5 @@
               (km :n :<leader>fs (fn []
                                    (builtin.grep_string {:search (vim.fn.input "grep > ")}))
                                  {:noremap true :desc "[f]ind text with [s]tring"})
+              (km :n :<leader>fc builtin.commands {:noremap true :desc "[f]ind [c]ommands"})
               (telescope.load_extension "ui-select")))}]

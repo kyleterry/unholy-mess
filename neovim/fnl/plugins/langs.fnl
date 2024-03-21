@@ -8,6 +8,8 @@
   :lazy true
   :build ":GoUpdateBinaries"
   :ft [:go]}
+ {1 :ray-x/go.nvim
+  :lazy true}
  {1 :hashivim/vim-terraform
   :lazy true
   :ft [:terraform]}
@@ -16,4 +18,9 @@
   :ft [:gdscript]}
  {1 :PotatoesMaster/i3-vim-syntax
   :lazy true
-  :ft [:i3]}]
+  :ft [:i3]}
+ {1 :lukas-reineke/headlines.nvim
+  :lazy true
+  :config (fn []
+            (let [headlines (require :headlines)]
+              (headlines.setup {})))}]

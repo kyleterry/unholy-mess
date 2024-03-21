@@ -18,6 +18,7 @@ do
 end
 require("config.init")
 require("config.mappings")
+require("config.autocmds")
 require("config.diagnostics")
 local statusline = require("config.statusline")
 return statusline.setup()

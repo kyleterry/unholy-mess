@@ -18,6 +18,7 @@
 
 (require :config.init)
 (require :config.mappings)
+(require :config.autocmds)
 (require :config.diagnostics)
 (let [statusline (require :config.statusline)]
   (statusline.setup))
