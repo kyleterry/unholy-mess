@@ -5,7 +5,8 @@
                   defaults [:vimdoc :bash :scheme :go :gomod :gowork :gosum :gdscript :python :fennel :json :lua :markdown :yaml]]
               (treesitter.setup {:highlight {:enable true
                                             :additional_vim_regex_highlighting false}
-                                 :indent {:enable true}
+                                 :indent {:enable true
+                                          :disable [:html]}
                                  :incremental_selection {:enable true
                                                          :keymaps {:init_selection :<c-space>
                                                                    :node_decremental :<m-space>

@@ -73,4 +73,5 @@
   }
  {1 :kawre/leetcode.nvim
   :dependencies [:muniftanjim/nui.nvim]
-  :opts {:lang :go}}]
+  :opts {:lang :go}}
+ {1 :airblade/vim-gitgutter}]

@@ -44,4 +44,4 @@ end
 local function _7_()
   return vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, {desc = "undotree toggle"})
 end
-return {{"mbbill/undotree", config = _7_}, {"kawre/leetcode.nvim", dependencies = {"muniftanjim/nui.nvim"}, opts = {lang = "go"}}}
+return {{"mbbill/undotree", config = _7_}, {"kawre/leetcode.nvim", dependencies = {"muniftanjim/nui.nvim"}, opts = {lang = "go"}}, {"airblade/vim-gitgutter"}}

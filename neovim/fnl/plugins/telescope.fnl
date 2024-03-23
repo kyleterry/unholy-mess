@@ -40,11 +40,13 @@
                                           :help_tags {:theme :ivy}
                                           :commands {:theme :ivy
                                                      :previewer false}
+                                          :git_status {:theme :ivy}
                                           :lsp_document_symbols {:theme :ivy}}})
               (km :n :<leader>ff builtin.find_files {:noremap true :desc "[f]ind [f]iles"})
               (km :n :<leader>fg builtin.live_grep {:noremap true :desc "[f]ind text with [g]rep"})
               (km :n :<leader>fb builtin.buffers {:noremap true :desc "[f]ind open [b]uffers"})
               (km :n :<leader>fh builtin.help_tags {:noremap true :desc "[f]ind [h]elp docs"})
+              (km :n :<leader>fS builtin.git_status {:noremap true :desc "[f]uckin show git [S]tatus"})
               (km :n :<leader>fn (fn []
                                    (builtin.find_files {:cwd (vim.fn.stdpath :config)}))
                                  {:noremap true :desc "[f]ind [n]eovim files"})
