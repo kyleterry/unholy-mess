@@ -5,6 +5,8 @@ local opts = {noremap = true, unique = true, silent = true}
 keymap("n", "<leader><space>", ":nohlsearch<cr>", opts)
 keymap("v", ">", "><cr>gv", opts)
 keymap("v", "<", "<<cr>gv", opts)
+keymap("v", "J", ":m '>+1<cr>gv=gv", opts)
+keymap("v", "K", ":m '<-2<cr>gv=gv", opts)
 keymap("n", "<c-j>", "<c-w>j", {})
 keymap("n", "<c-k>", "<c-w>k", {})
 keymap("n", "<c-l>", "<c-w>l", {})

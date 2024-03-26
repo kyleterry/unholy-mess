@@ -8,6 +8,10 @@
 (keymap :v ">" "><cr>gv" opts)
 (keymap :v "<" "<<cr>gv" opts)
 
+; allows moving selected lines up and down
+(keymap :v :J ":m '>+1<cr>gv=gv" opts)
+(keymap :v :K ":m '<-2<cr>gv=gv" opts)
+
 ; move between split windows
 (keymap :n :<c-j> :<c-w>j {})
 (keymap :n :<c-k> :<c-w>k {})
