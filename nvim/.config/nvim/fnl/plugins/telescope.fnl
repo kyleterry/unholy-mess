@@ -3,6 +3,7 @@
 
 [{1 :nvim-telescope/telescope.nvim
   :dependencies [:nvim-telescope/telescope-ui-select.nvim
+                 :nvim-telescope/telescope-live-grep-args.nvim
                  :nvim-lua/popup.nvim
                  :nvim-lua/plenary.nvim]
   :config (fn []
@@ -43,7 +44,11 @@
                                           :git_status {:theme :ivy}
                                           :lsp_document_symbols {:theme :ivy}}})
               (km :n :<leader>ff builtin.find_files {:noremap true :desc "[f]ind [f]iles"})
-              (km :n :<leader>fg builtin.live_grep {:noremap true :desc "[f]ind text with [g]rep"})
+              (km :n :<leader>fg (fn []
+                                   (builtin.live_grep {:search ""
+                                                      :only_sort_text true
+                                                      :shorten_path true}))
+                                 {:noremap true :desc "[f]ind text with [g]rep"})
               (km :n :<leader>fb builtin.buffers {:noremap true :desc "[f]ind open [b]uffers"})
               (km :n :<leader>fh builtin.help_tags {:noremap true :desc "[f]ind [h]elp docs"})
               (km :n :<leader>fS builtin.git_status {:noremap true :desc "[f]uckin show git [S]tatus"})
@@ -55,4 +60,5 @@
                                    (builtin.grep_string {:search (vim.fn.input "grep > ")}))
                                  {:noremap true :desc "[f]ind text with [s]tring"})
               (km :n :<leader>fc builtin.commands {:noremap true :desc "[f]ind [c]ommands"})
-              (telescope.load_extension "ui-select")))}]
+              (telescope.load_extension "ui-select")
+              (telescope.load_extension "live_grep_args")))}]

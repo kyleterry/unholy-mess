@@ -6,7 +6,7 @@
               (treesitter.setup {:highlight {:enable true
                                             :additional_vim_regex_highlighting false}
                                  :indent {:enable true
-                                          :disable [:html]}
+                                          :disable [:html :markdown]}
                                  :incremental_selection {:enable true
                                                          :keymaps {:init_selection :<c-space>
                                                                    :node_decremental :<m-space>

@@ -38,11 +38,11 @@
             (let [cmp (require :cmp)
                   cmp-sources (cmp.config.sources
                                 [
-                                 {:name :copilot :group_index 2}
-                                 {:name :nvim_lsp :group_index 2}
+                                 {:name :nvim_lua}
+                                 {:name :nvim_lsp}
                                  {:name :luasnip}
                                  {:name :conjure}
-                                 {:name :nvim_lua}
+                                 {:name :copilot :group_index 2}
                                  {:name :buffer}
                                  {:name :path}])
                   cmp-src-menu-items {:conjure :conjure
@@ -158,7 +158,7 @@
                                 (nset bufnr :n :K "<Cmd>lua vim.lsp.buf.hover()<CR>" (opts-with-desc "lsp hover"))
                                 (nset bufnr :n :<a-k> "<Cmd>lua vim.lsp.buf.signature_help()<CR>" (opts-with-desc "show signature help"))
                                 (nset bufnr :n :<space>a "<Cmd>lua vim.lsp.buf.format()<CR>" (opts-with-desc "run code formatter"))))
-                  quick-setups [:lua_ls :bashls :terraformls :tflint :sqlls :html :htmx]] ; these setups don't require config outside capabilities and on_attach
+                  quick-setups [:lua_ls :bashls :terraformls :tflint :sqlls :html :htmx :nil_ls :clangd :templ]] ; these setups don't require config outside capabilities and on_attach
 
               (tset capabilities.textDocument.completion.completionItem :snippetSupport true)
               (lsp.fennel_language_server.setup

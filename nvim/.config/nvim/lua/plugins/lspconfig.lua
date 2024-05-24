@@ -19,7 +19,7 @@ local function _3_()
 end
 local function _4_()
   local cmp = require("cmp")
-  local cmp_sources = cmp.config.sources({{name = "copilot", group_index = 2}, {name = "nvim_lsp", group_index = 2}, {name = "luasnip"}, {name = "conjure"}, {name = "nvim_lua"}, {name = "buffer"}, {name = "path"}})
+  local cmp_sources = cmp.config.sources({{name = "nvim_lua"}, {name = "nvim_lsp"}, {name = "luasnip"}, {name = "conjure"}, {name = "copilot", group_index = 2}, {name = "buffer"}, {name = "path"}})
   local cmp_src_menu_items = {conjure = "conjure", nvim_lsp = "lsp", luasnip = "snippet", buffer = "buffer"}
   local luasnip = require("luasnip")
   local function _5_(args)
@@ -126,7 +126,7 @@ local function _19_()
     return nset(bufnr, "n", "<space>a", "<Cmd>lua vim.lsp.buf.format()<CR>", opts_with_desc("run code formatter"))
   end
   on_attach = _21_
-  local quick_setups = {"lua_ls", "bashls", "terraformls", "tflint", "sqlls", "html", "htmx"}
+  local quick_setups = {"lua_ls", "bashls", "terraformls", "tflint", "sqlls", "html", "htmx", "nil_ls", "clangd", "templ"}
   capabilities.textDocument.completion.completionItem["snippetSupport"] = true
   lsp.fennel_language_server.setup({on_attach = on_attach, capabilities = capabilities, root_dir = lsp.util.root_pattern("fnl", "lua"), settings = {fennel = {diagnostics = {globals = {"vim", "jit", "comment"}}, workspace = {library = vim.api.nvim_list_runtime_paths()}}}})
   lsp.gopls.setup({cmd = {"gopls"}, on_attach = on_attach, capabilities = capabilities, settings = {gopls = {experimentalPostfixCompletions = true, gofumpt = true, codelenses = {gc_details = true, generate = true, test = true, tidy = true, upgrade_dependency = true}, analyses = {unusedparams = true, unusedwrite = true, nilness = true, useany = true, shadow = true}, hints = {assignVariableTypes = true, compositeLiteralTypes = true, compositeListeralFields = true, contantValues = true, functionTypeParameters = true, rangeVariableTypes = true}, usePlaceholders = true, completeUnimported = true, semanticTokens = true, staticcheck = true}}, init_options = {usePlaceholders = true}})
