@@ -4,7 +4,8 @@
             (let [treesitter (require :nvim-treesitter.configs)
                   defaults [:vimdoc :bash :scheme :go :gomod :gowork :gosum :gdscript :python :fennel :json :lua :markdown :yaml]]
               (treesitter.setup {:highlight {:enable true
-                                            :additional_vim_regex_highlighting false}
+                                             :disable [:markdown]
+                                             :additional_vim_regex_highlighting false}
                                  :indent {:enable true
                                           :disable [:html :markdown]}
                                  :incremental_selection {:enable true

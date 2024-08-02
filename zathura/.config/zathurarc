@@ -28,3 +28,6 @@ set render-loading-fg           "#ebdbb2"
 set recolor-lightcolor          "#282828" # bg
 set recolor-darkcolor           "#ebdbb2" # fg
 set recolor                     "true"
+
+map D set "first-page-column 1:1"
+map <C-d> set "first-page-column 1:2"
