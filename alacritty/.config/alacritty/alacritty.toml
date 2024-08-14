@@ -1,0 +1,30 @@
+import = [
+    "/usr/lib/node_modules/alacritty-themes/themes/Gruvbox-Dark.toml",
+    "/home/kyle/.unholy-mess/alacritty/.config/alacritty/themes/themes/gruvbox-dark-material.toml",
+]
+
+[font]
+size = 13
+
+[font.bold]
+family = "Terminus"
+style = "Regular"
+
+[font.bold_italic]
+family = "Terminus"
+style = "Regular"
+
+[font.italic]
+family = "Terminus"
+style = "Regular"
+
+[font.normal]
+family = "Terminus"
+style = "Regular"
+
+[window]
+dynamic_title = true
+
+[window.padding]
+x = 2
+y = 2

@@ -13,5 +13,5 @@
             ; (let [theme (require :gruvbox-material)]
               ; (theme.setup gruvbox-config)
               (vim.cmd "set background=dark")
-              (vim.cmd "let g:gruvbox_material_background = 'hard'")
+              ; (vim.cmd "let g:gruvbox_material_background = 'hard'")
               (vim.cmd "colorscheme gruvbox-material")))}]

@@ -33,6 +33,9 @@ bindsym $mod+d exec $menu
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
+bindsym $mod+M exec rofi -dmenu -p "mark window" | xargs -r swaymsg mark
+bindsym $mod+g exec rofi -dmenu -p "goto window" | xargs -r swaymsg [con_mark="%s"] focus
+
 floating_modifier $mod normal
 
 bindsym $mod+$left focus left
