@@ -4,7 +4,7 @@ local autoload = _local_1_["autoload"]
 local nvim = autoload("nvim")
 local function has_words_before()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return ((col ~= 0) and (((vim.api.nvim_buf_get_lines(0, (line - 1), line, true))[1]):sub(col, col):match("%s") == nil))
+  return ((col ~= 0) and (vim.api.nvim_buf_get_lines(0, (line - 1), line, true)[1]:sub(col, col):match("%s") == nil))
 end
 local cmp_deps = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline", "hrsh7th/cmp-vsnip", "hrsh7th/cmp-nvim-lua", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip", "PaterJason/cmp-conjure"}
 local function _2_()
@@ -95,7 +95,7 @@ local function _18_()
   local mason_null_ls = require("mason-null-ls")
   mason.setup({})
   mason_lsp.setup({ensure_installed = {"lua_ls", "gopls", "nil_ls", "bashls", "terraformls"}})
-  mason_null_ls.setup({ensure_installed = {"gofumpt", "delve", "goimports", "luacheck", "shellcheck", "tflint"}})
+  mason_null_ls.setup({ensure_installed = {"gofumpt", "delve", "goimports", "luacheck", "shellcheck", "tflint", "zls"}})
   return null_ls.setup({})
 end
 local function _19_()
@@ -126,7 +126,7 @@ local function _19_()
     return nset(bufnr, "n", "<space>a", "<Cmd>lua vim.lsp.buf.format()<CR>", opts_with_desc("run code formatter"))
   end
   on_attach = _21_
-  local quick_setups = {"lua_ls", "bashls", "terraformls", "tflint", "sqlls", "html", "htmx", "nil_ls", "clangd", "templ"}
+  local quick_setups = {"lua_ls", "bashls", "terraformls", "tflint", "sqlls", "html", "htmx", "nil_ls", "clangd", "templ", "zls"}
   capabilities.textDocument.completion.completionItem["snippetSupport"] = true
   lsp.fennel_language_server.setup({on_attach = on_attach, capabilities = capabilities, root_dir = lsp.util.root_pattern("fnl", "lua"), settings = {fennel = {diagnostics = {globals = {"vim", "jit", "comment"}}, workspace = {library = vim.api.nvim_list_runtime_paths()}}}})
   lsp.gopls.setup({cmd = {"gopls"}, on_attach = on_attach, capabilities = capabilities, settings = {gopls = {experimentalPostfixCompletions = true, gofumpt = true, codelenses = {gc_details = true, generate = true, test = true, tidy = true, upgrade_dependency = true}, analyses = {unusedparams = true, unusedwrite = true, nilness = true, useany = true, shadow = true}, hints = {assignVariableTypes = true, compositeLiteralTypes = true, compositeListeralFields = true, contantValues = true, functionTypeParameters = true, rangeVariableTypes = true}, usePlaceholders = true, completeUnimported = true, semanticTokens = true, staticcheck = true}}, init_options = {usePlaceholders = true}})
