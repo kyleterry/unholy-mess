@@ -6,7 +6,5 @@
     gambit
     zig
     zls
-    p4
-    SDL2
   ];
 }

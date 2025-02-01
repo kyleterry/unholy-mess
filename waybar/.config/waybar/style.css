@@ -1,0 +1,217 @@
+@define-color black	#282828;
+@define-color red	#cc241d;
+@define-color red2 #ea6962;
+@define-color green	#98971a;
+@define-color yellow #d79921;
+@define-color blue #458588;
+@define-color purple #b16286;
+@define-color aqua #689d6a;
+@define-color gray #a89984;
+@define-color brgray #928374;
+@define-color brred	#fb4934;
+@define-color brgreen	#b8bb26;
+@define-color bryellow #fabd2f;
+@define-color brblue #83a598;
+@define-color brpurple #d3869b;
+@define-color braqua #8ec07c;
+@define-color white	#ebdbb2;
+@define-color fg1 #c7ab7a;
+@define-color bg1	#141617;
+@define-color bg2	#504945;
+@define-color bg3 #3c3836;
+
+* {
+  /* `otf-font-awesome` is required to be installed for icons */
+  /* font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif; */
+  font-family: 'JetBrains Mono ExtraLight';
+  font-size: 12px;
+  border: none;
+	border-radius: 0;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	text-shadow: none;
+	icon-shadow: none;
+}
+
+window#waybar {
+  background: @bg1;
+  transition-property: background-color;
+  transition-duration: .5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+tooltip {
+  background: @bg1;
+  border: 2px solid #7c6f64;
+}
+
+window#waybar.alacritty {
+  background-color: @bg2;
+}
+
+button {
+  border: none;
+  border-radius: 0;
+  color: @fg1;
+  min-height: 16px;
+}
+
+button:hover {
+  background: inherit;
+}
+
+#workspaces {
+  background-color: @bg3;
+}
+
+#workspaces button {
+  padding: 3px;
+  background-color: transparent;
+  color: @fg1;
+}
+
+#workspaces button:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#workspaces button.focused {
+  background-color: #504945;
+}
+
+#mode,
+#workspaces button.urgent {
+  background-color: @brred;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+  padding: 0 6px;
+  color: @fg1;
+}
+
+#window,
+#workspaces {
+  color: @fg1;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}
+
+#clock,
+#battery,
+#scratchpad,
+#battery.charging,
+#battery.plugged {
+  background-color: @bg3;
+}
+
+@keyframes blink {
+  to {
+    background-color: #ffffff;
+    color: #000000;
+  }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+  background-color: @red;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#power-profiles-daemon {
+  padding-right: 15px;
+}
+
+#power-profiles-daemon.performance {
+  background-color: #f53c3c;
+  color: #ffffff;
+}
+
+#power-profiles-daemon.balanced {
+  background-color: #2980b9;
+  color: #ffffff;
+}
+
+#power-profiles-daemon.power-saver {
+  background-color: #2ecc71;
+  color: #000000;
+}
+
+label:focus {
+  background-color: #000000;
+}
+
+#cpu {
+  background-color: #2ecc71;
+  color: #000000;
+}
+
+#memory {
+  background-color: #9b59b6;
+}
+
+#disk {
+  background-color: #964B00;
+}
+
+#backlight {
+  background-color: #90b1b1;
+}
+
+#network {
+  background-color: #ddc7a1;
+  color: #1d2021;
+}
+
+#network.disconnected {
+  background-color: #f53c3c;
+}
+
+#network,
+#pulseaudio,
+#wireplumber {
+  /* background-color: #ddc7a1; */
+  background-color: @fg1;
+  color: @bg1;
+}
+
+#network.disconnected,
+#pulseaudio.muted,
+#wireplumber.muted {
+  background-color: @red2;
+}
+
+#scratchpad.empty {
+  background-color: transparent;
+}

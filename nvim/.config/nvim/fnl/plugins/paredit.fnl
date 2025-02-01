@@ -34,13 +34,9 @@
 
  {1 :julienvincent/nvim-paredit
   :lazy false
-  :dependencies [:julienvincent/nvim-paredit-fennel
-                 :ekaitz-zarraga/nvim-paredit-scheme]
   :ft lisps
   :config (fn []
-            (let [paredit (require :nvim-paredit)
-                  paredit-fennel (require :nvim-paredit-fennel)
-                  paredit-scheme (require :nvim-paredit-scheme)]
+            (let [paredit (require :nvim-paredit)]
               (paredit.setup
                 {:keys
                  {:<A-H> [paredit.api.slurp_backwards "Slurp backwards"]
@@ -61,9 +57,7 @@
                        (paredit.wrap.wrap_element_under_cursor "(" ")")
                        {:placement :inner_end :mode :insert}))
                    "Wrap element insert tail"]}
-                 :indent {:enabled true}})
-              (paredit-fennel.setup {})
-              (paredit-scheme.setup paredit)))}
+                 :indent {:enabled true}})))}
 
  {1 :kylechui/nvim-surround
   :event "VeryLazy"

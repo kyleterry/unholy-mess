@@ -131,7 +131,7 @@
                   null-ls (require :null-ls)
                   mason-null-ls (require :mason-null-ls)]
               (mason.setup {})
-              (mason-lsp.setup {:ensure_installed [:lua_ls :gopls :nil_ls :bashls :terraformls]})
+              (mason-lsp.setup {:ensure_installed [:lua_ls :gopls :nil_ls :terraformls]})
               (mason-null-ls.setup {:ensure_installed [:gofumpt :delve :goimports :luacheck :shellcheck :tflint :zls]})
               (null-ls.setup {})))}
  {1 :neovim/nvim-lspconfig
@@ -158,16 +158,16 @@
                                 (nset bufnr :n :K "<Cmd>lua vim.lsp.buf.hover()<CR>" (opts-with-desc "lsp hover"))
                                 (nset bufnr :n :<a-k> "<Cmd>lua vim.lsp.buf.signature_help()<CR>" (opts-with-desc "show signature help"))
                                 (nset bufnr :n :<space>a "<Cmd>lua vim.lsp.buf.format()<CR>" (opts-with-desc "run code formatter"))))
-                  quick-setups [:lua_ls :bashls :terraformls :tflint :sqlls :html :htmx :nil_ls :clangd :templ :zls]] ; these setups don't require config outside capabilities and on_attach
+                  quick-setups [:lua_ls :fennel_ls :terraformls :tflint :sqlls :html :htmx :nil_ls :clangd :templ :zls]] ; these setups don't require config outside capabilities and on_attach
 
               (tset capabilities.textDocument.completion.completionItem :snippetSupport true)
-              (lsp.fennel_language_server.setup
-                {:on_attach on-attach
-                 :capabilities capabilities
-                 :root_dir (lsp.util.root_pattern :fnl :lua)
-                 :settings {:fennel {:diagnostics
-                                     {:globals [:vim :jit :comment]}
-                                      :workspace {:library (vim.api.nvim_list_runtime_paths)}}}})
+              ; (lsp.fennel_language_server.setup
+              ;   {:on_attach on-attach
+              ;    :capabilities capabilities
+              ;    :root_dir (lsp.util.root_pattern :fnl :lua)
+              ;    :settings {:fennel {:diagnostics
+              ;                        {:globals [:vim :jit :comment]}
+              ;                         :workspace {:library (vim.api.nvim_list_runtime_paths)}}}})
               (lsp.gopls.setup
                 {:cmd  [:gopls]
                  :on_attach on-attach

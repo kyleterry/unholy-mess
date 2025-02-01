@@ -1,0 +1,17 @@
+margin=10,10,10
+width=200
+border-size=2
+border-radius=0
+default-timeout=0
+font=JetBrains Mono 10
+history=1
+
+background-color=#282828e0
+text-color=#ebdbb2
+border-color=#ebdbb2
+progress-color=source #cc241d
+
+[urgency=high]
+background-color=#fb4934
+text-color=#282828
+border-color=#282828

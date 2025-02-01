@@ -1,17 +1,29 @@
-; (local gruvbox-config {})
-
-; [{1 :ellisonleao/gruvbox.nvim
-;   :priority 1000
-;   :config (fn []
-;             (let [theme (require :gruvbox)]
-;               (theme.setup gruvbox-config)
-;               (vim.cmd "colorscheme gruvbox")))}]
-[{1 :sainnhe/gruvbox-material
+[{1 :ellisonleao/gruvbox.nvim
   :priority 1000
   :config (fn []
-            (do
-            ; (let [theme (require :gruvbox-material)]
-              ; (theme.setup gruvbox-config)
+            (let [gruvbox (require :gruvbox)
+                  gruvbox-colors (. gruvbox :palette)
+                  gruvbox-bg-soft (. gruvbox-colors :dark0_soft)
+                  gruvbox-fg-soft (. gruvbox-colors :light1)
+                  gruvbox-config {:terminal_colors true
+                                  :contrast "hard"
+                                  :invert_signs false
+                                  :transparent_mode false
+                                  :italic {:strings false
+                                            :emphasis false
+                                            :comments false
+                                            :operators false
+                                            :folds false}
+                                  :overrides {:CursorLine {:bg gruvbox-bg-soft}
+                                              :StatusLine {:fg gruvbox-fg-soft :bg gruvbox-bg-soft}
+                                              :SignColumn {:link "Normal"}
+                                              :GruvboxGreenSign {:bg ""}
+                                              :GruvboxOrangeSign {:bg ""}
+                                              :GruvboxPurpleSign {:bg ""}
+                                              :GruvboxYellowSign {:bg ""}
+                                              :GruvboxRedSign {:bg ""}
+                                              :GruvboxBlueSign {:bg ""}
+                                              :GruvboxAquaSign {:bg ""}}}]
+              (gruvbox.setup gruvbox-config)
               (vim.cmd "set background=dark")
-              ; (vim.cmd "let g:gruvbox_material_background = 'hard'")
-              (vim.cmd "colorscheme gruvbox-material")))}]
+              (vim.cmd "colorscheme gruvbox")))}]
