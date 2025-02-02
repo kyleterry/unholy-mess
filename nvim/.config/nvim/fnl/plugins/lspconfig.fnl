@@ -15,15 +15,7 @@
                  :L3MON4D3/LuaSnip
                  :saadparwaiz1/cmp_luasnip
                  :PaterJason/cmp-conjure])
-[{1 :zbirenbaum/copilot.lua
-  :dependencies [:zbirenbaum/copilot-cmp]
-  :event :InsertEnter
-  :config (fn []
-            (let [copilot (require :copilot)
-                  copilot-cmp (require :copilot_cmp)]
-              (copilot.setup {})
-              (copilot-cmp.setup {})))}
- {1 :L3MON4D3/LuaSnip
+[{1 :L3MON4D3/LuaSnip
   :lazy false
   :dependencies [:rafamadriz/friendly-snippets]
   :build "make install_jsregexp"
@@ -42,7 +34,6 @@
                                  {:name :nvim_lsp}
                                  {:name :luasnip}
                                  {:name :conjure}
-                                 {:name :copilot :group_index 2}
                                  {:name :buffer}
                                  {:name :path}])
                   cmp-src-menu-items {:conjure :conjure
@@ -161,13 +152,6 @@
                   quick-setups [:lua_ls :fennel_ls :terraformls :tflint :sqlls :html :htmx :nil_ls :clangd :templ :zls]] ; these setups don't require config outside capabilities and on_attach
 
               (tset capabilities.textDocument.completion.completionItem :snippetSupport true)
-              ; (lsp.fennel_language_server.setup
-              ;   {:on_attach on-attach
-              ;    :capabilities capabilities
-              ;    :root_dir (lsp.util.root_pattern :fnl :lua)
-              ;    :settings {:fennel {:diagnostics
-              ;                        {:globals [:vim :jit :comment]}
-              ;                         :workspace {:library (vim.api.nvim_list_runtime_paths)}}}})
               (lsp.gopls.setup
                 {:cmd  [:gopls]
                  :on_attach on-attach

@@ -16,6 +16,15 @@
  {1 :habamax/vim-godot
   :lazy true
   :ft [:gdscript]}
+ {1 :iabdelkareem/csharp.nvim
+  :lazy true
+  :dependencies [:williamboman/mason.nvim
+                 :mfussenegger/nvim-dap
+                 :Tastyep/structlog.nvim]
+  :ft [:cs]
+  :config (fn []
+            (let [csharp (require :csharp)]
+              (csharp.setup {})))}
  {1 :PotatoesMaster/i3-vim-syntax
   :lazy true
   :ft [:i3]}
