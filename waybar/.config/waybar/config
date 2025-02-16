@@ -18,6 +18,7 @@
 
   "modules-right": [
     "sway/scratchpad",
+    "custom/tailscale",
     "network",
     "battery",
     "pulseaudio",
@@ -77,5 +78,19 @@
     "nospacing": 1,
     "on-click": "pavucontrol",
     "tooltip": false
+  },
+
+  "custom/tailscale" : {
+    "exec": "~/.local/bin/waybar-tailscale --status",
+    "on-click": "exec ~/.local/bin/waybar-tailscale --toggle",
+    "exec-on-event": true,
+    "format": "vpn {icon}",
+    "format-icons": {
+      "connected": "on",
+      "stopped": "off"
+    },
+    "tooltip": true,
+    "return-type": "json",
+    "interval": 3,
   }
 }

@@ -2,7 +2,6 @@
 local _local_1_ = require("nfnl.module")
 local autoload = _local_1_["autoload"]
 local nvim = autoload("nvim")
-local nfnl_core = autoload("nfnl.core")
 do
   local km = vim.keymap.set
   local plugins
@@ -38,7 +37,7 @@ do
     local qmk = require("qmk")
     return qmk.setup({})
   end
-  plugins = {["olical/nfnl"] = {}, ["mbbill/undotree"] = {config = _2_}, ["olical/conjure"] = {branch = "master", init = _3_}, ["ellisonleao/gruvbox.nvim"] = {priority = 1000, config = _4_}, ["folke/todo-comments"] = {opts = {signs = false}}, ["folke/which-key.nvim"] = {event = "VeryLazy", init = _5_}, ["tpope/vim-abolish"] = {}, ["tpope/vim-commentary"] = {}, ["tpope/vim-dadbod"] = {}, ["tpope/vim-fugitive"] = {}, ["tpope/vim-sensible"] = {}, ["tpope/vim-surround"] = {}, ["tpope/vim-unimpaired"] = {}, ["tpope/vim-vinegar"] = {}, ["bakpakin/fennel.vim"] = {lazy = true, ft = {"fennel"}}, ["wlangstroth/vim-racket"] = {lazy = true, ft = {"racket"}}, ["fatih/vim-go"] = {lazy = true, build = ":GoUpdateBinaries", ft = {"go"}}, ["ray-x/go.nvim"] = {lazy = true}, ["hashivim/vim-terraform"] = {lazy = true, ft = {"terraform"}}, ["habamax/vim-godot"] = {lazy = true, ft = {"gdscript"}}, ["potatoesmaster/i3-vim-syntax"] = {lazy = true, ft = {"i3"}}, ["codethread/qmk.nvim"] = {config = _6_}, ["kawre/leetcode.nvim"] = {dependencies = {"muniftanjim/nui.nvim"}, opts = {lang = "go"}}}
+  plugins = {["olical/nfnl"] = {}, ["mbbill/undotree"] = {config = _2_}, ["olical/conjure"] = {branch = "master", init = _3_}, ["ellisonleao/gruvbox.nvim"] = {priority = 1000, config = _4_}, ["folke/todo-comments"] = {opts = {signs = false}}, ["folke/which-key.nvim"] = {event = "VeryLazy", init = _5_}, ["tpope/vim-abolish"] = {}, ["tpope/vim-commentary"] = {}, ["tpope/vim-dadbod"] = {}, ["tpope/vim-sensible"] = {}, ["tpope/vim-surround"] = {}, ["tpope/vim-unimpaired"] = {}, ["tpope/vim-vinegar"] = {}, ["bakpakin/fennel.vim"] = {lazy = true, ft = {"fennel"}}, ["wlangstroth/vim-racket"] = {lazy = true, ft = {"racket"}}, ["fatih/vim-go"] = {lazy = true, build = ":GoUpdateBinaries", ft = {"go"}}, ["ray-x/go.nvim"] = {lazy = true}, ["hashivim/vim-terraform"] = {lazy = true, ft = {"terraform"}}, ["habamax/vim-godot"] = {lazy = true, ft = {"gdscript"}}, ["jamespeapen/swayconfig.vim"] = {lazy = true, ft = {"swayconfig", "sway"}}, ["codethread/qmk.nvim"] = {config = _6_}, ["kawre/leetcode.nvim"] = {dependencies = {"muniftanjim/nui.nvim"}, opts = {lang = "go"}}}
   do local _ = {} end
 end
 local function _7_()

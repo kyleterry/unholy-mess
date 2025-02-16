@@ -8,12 +8,15 @@
                                 :focusable false
                                 :border :single
                                 :title "Diagnostic:"
-                                :title_pos "left"}})
+                                :title_pos :left}})
 
-(map :n
-     :<space>e
-     #(vim.diagnostic.open_float 0 {:scope "line"
-                                    :close_events ["BufLeave" "CursorMoved" "InsertEnter" "FocusLost"]})
+(map :n :<space>e
+     #(vim.diagnostic.open_float 0
+                                 {:scope :line
+                                  :close_events [:BufLeave
+                                                 :CursorMoved
+                                                 :InsertEnter
+                                                 :FocusLost]})
      {:noremap true :silent true})
 
 (map :n :<space>lQ vim.diagnostic.setqflist {:noremap true :silent true})

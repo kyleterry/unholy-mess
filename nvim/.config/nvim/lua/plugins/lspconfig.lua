@@ -80,7 +80,7 @@ local function _14_()
 end
 local function _16_()
   local conform = require("conform")
-  return conform.setup({formatters_by_ft = {fennel = {"fnlfmp"}, lua = {"stylua"}}, format_on_save = {lsp_fallback = true, timeout_ms = 500, async = false}})
+  return conform.setup({formatters_by_ft = {fennel = {"fnlfmt"}, lua = {"stylua"}, tf = {"tfmt"}, terraform = {"tfmt"}, hcl = {"tfmt"}}, format_on_save = {lsp_fallback = true, timeout_ms = 500, async = false}, formatters = {tfmt = {command = "tofu", args = {"fmt", "-"}, stdin = true}}})
 end
 local function _17_()
   local mason = require("mason")
@@ -120,8 +120,9 @@ local function _18_()
     return nset(bufnr, "n", "<space>a", "<Cmd>lua vim.lsp.buf.format()<CR>", opts_with_desc("run code formatter"))
   end
   on_attach = _20_
-  local quick_setups = {"lua_ls", "fennel_ls", "terraformls", "tflint", "sqlls", "html", "htmx", "nil_ls", "clangd", "templ", "zls"}
+  local quick_setups = {"lua_ls", "terraformls", "tflint", "sqlls", "html", "htmx", "nil_ls", "clangd", "templ", "zls"}
   capabilities.textDocument.completion.completionItem["snippetSupport"] = true
+  lsp.fennel_language_server.setup({on_attach = on_attach, capabilities = capabilities, settings = {fennel = {workspace = {library = vim.api.nvim_list_runtime_paths(), checkThirdParty = false}, diagnostics = {globals = {"vim", "Snacks"}}}}})
   lsp.gopls.setup({cmd = {"gopls"}, on_attach = on_attach, capabilities = capabilities, settings = {gopls = {experimentalPostfixCompletions = true, gofumpt = true, codelenses = {gc_details = true, generate = true, test = true, tidy = true, upgrade_dependency = true}, analyses = {unusedparams = true, unusedwrite = true, nilness = true, useany = true, shadow = true}, hints = {assignVariableTypes = true, compositeLiteralTypes = true, compositeListeralFields = true, contantValues = true, functionTypeParameters = true, rangeVariableTypes = true}, usePlaceholders = true, completeUnimported = true, semanticTokens = true, staticcheck = true}}, init_options = {usePlaceholders = true}})
   for _, val in ipairs(quick_setups) do
     lsp[val].setup({capabilities = capabilities, on_attach = on_attach})

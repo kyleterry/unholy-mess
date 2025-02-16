@@ -31,7 +31,7 @@
   ui = auto
 
 [core]
-  editor = vim
+  editor = nvim
 	excludesfile = /home/kyle/.gitignore_global
 
 [alias]
@@ -56,9 +56,13 @@
   smudge = git-media-smudge %f
 [url "git@github.com:kyleterry/"]
   insteadOf = https://github.com/kyleterry/
+[url "git@100.100.184.83"]
+  insteadOf = git@repos.ne79.ohsht.net
 [commit]
 	; gpgsign = true
 [ghi]
 	token = !security find-internet-password -a kyleterry -s github.com -l 'ghi token' -w
 [gpg]
 	program = gpg
+[init]
+	defaultBranch = main

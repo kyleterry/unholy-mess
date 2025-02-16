@@ -2,7 +2,21 @@
   :build ":TSUpdate"
   :config (fn []
             (let [treesitter (require :nvim-treesitter.configs)
-                  defaults [:vimdoc :bash :scheme :go :gomod :gowork :gosum :gdscript :python :fennel :json :lua :markdown :yaml]]
+                  defaults [:vimdoc
+                            :bash
+                            :scheme
+                            :go
+                            :gomod
+                            :gowork
+                            :gosum
+                            :gdscript
+                            :python
+                            :fennel
+                            :terraform
+                            :json
+                            :lua
+                            :markdown
+                            :yaml]]
               (treesitter.setup {:highlight {:enable true
                                              :disable [:markdown]
                                              :additional_vim_regex_highlighting false}

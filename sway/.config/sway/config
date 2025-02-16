@@ -27,15 +27,7 @@ set {
 
 smart_borders on
 
-# exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
-
-exec swayidle -w \
-         timeout      300 'swaylock -fF -c 1d2021' \
-         timeout      600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         lock         'swaylock -fF -c 1d2021' \
-         before-sleep 'swaylock -fF -c 1d2021'
-
-exec mako
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
 
 output eDP-1 scale 2
 
@@ -167,6 +159,41 @@ mode "resize" {
   bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+exec swayidle -w \
+         timeout      300 'swaylock -fF -c 1d2021' \
+         timeout      600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         lock         'swaylock -fF -c 1d2021' \
+         before-sleep 'swaylock -fF -c 1d2021'
+
+exec mako
+exec udiskie
+
+exec alacritty --class terminal-scratch
+for_window [app_id="^terminal-scratch$"] move scratchpad
+
+exec alacritty --class terminal-irc
+for_window [app_id="^terminal-irc$"] mark irc
+assign [app_id="^terminal-irc$"] → 8
+
+exec zen
+for_window [app_id="firefox"] mark web
+for_window [app_id="zen"] mark web
+for_window [app_id="firefox"] inhibit_idle fullscreen
+for_window [app_id="zen"] inhibit_idle fullscreen
+assign [app_id="firefox"] → 1
+assign [app_id="zen"] → 1
+
+for_window [class="^Steam$" title="^Friends$"] floating enable
+for_window [class="^Steam$" title="Steam - News"] floating enable
+for_window [class="^Steam$" title=".* - Chat"] floating enable
+for_window [class="^Steam$" title="^Settings$"] floating enable
+for_window [class="^Steam$" title=".* - event started"] floating enable
+for_window [class="^Steam$" title=".* CD key"] floating enable
+for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
+for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
+for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
+for_window [title="^Steam Keyboard$"] floating enable
 
 titlebar_border_thickness 0
 titlebar_padding 10 1

@@ -6,17 +6,18 @@
                   gruvbox-bg-soft (. gruvbox-colors :dark0_soft)
                   gruvbox-fg-soft (. gruvbox-colors :light1)
                   gruvbox-config {:terminal_colors true
-                                  :contrast "hard"
+                                  :contrast :hard
                                   :invert_signs false
                                   :transparent_mode false
                                   :italic {:strings false
-                                            :emphasis false
-                                            :comments false
-                                            :operators false
-                                            :folds false}
+                                           :emphasis false
+                                           :comments false
+                                           :operators false
+                                           :folds false}
                                   :overrides {:CursorLine {:bg gruvbox-bg-soft}
-                                              :StatusLine {:fg gruvbox-fg-soft :bg gruvbox-bg-soft}
-                                              :SignColumn {:link "Normal"}
+                                              :StatusLine {:fg gruvbox-fg-soft
+                                                           :bg gruvbox-bg-soft}
+                                              :SignColumn {:link :Normal}
                                               :GruvboxGreenSign {:bg ""}
                                               :GruvboxOrangeSign {:bg ""}
                                               :GruvboxPurpleSign {:bg ""}

@@ -5,8 +5,8 @@
 (keymap :n :<leader><space> ":nohlsearch<cr>" opts)
 
 ; keeps selection when indenting
-(keymap :v ">" "><cr>gv" opts)
-(keymap :v "<" "<<cr>gv" opts)
+(keymap :v ">" :><cr>gv opts)
+(keymap :v "<" :<<cr>gv opts)
 
 ; allows moving selected lines up and down
 (keymap :v :J ":m '>+1<cr>gv=gv" opts)

@@ -14,12 +14,13 @@
 (ensure :Olical :nfnl)
 
 (let [lazy (require :lazy)]
-  (lazy.setup :plugins))
+  (lazy.setup {:spec {:import :plugins} :checker {:enabled true}}))
 
 (require :config.init)
 (require :config.mappings)
 (require :config.filetypes)
 (require :config.autocmds)
 (require :config.diagnostics)
+
 (let [statusline (require :config.statusline)]
   (statusline.setup))

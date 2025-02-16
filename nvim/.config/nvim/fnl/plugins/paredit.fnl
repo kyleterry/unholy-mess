@@ -1,8 +1,4 @@
-(local {: autoload} (require :nfnl.module))
-(local nvim (autoload :nvim))
-
 (local fun (require :config.fun))
-
 (local lisps [:scheme :lisp :fennel :racket :clojure])
 
 ; (fn lsp-indent [event opts]
@@ -31,36 +27,34 @@
                                 :enable_check_bracket_line false})
               (tset (fun.head (autopairs.get_rules "'")) :not_filetypes lisps)
               (tset (fun.head (autopairs.get_rules "`")) :not_filetypes lisps)))}
-
  {1 :julienvincent/nvim-paredit
   :lazy false
   :ft lisps
   :config (fn []
             (let [paredit (require :nvim-paredit)]
-              (paredit.setup
-                {:keys
-                 {:<A-H> [paredit.api.slurp_backwards "Slurp backwards"]
-                  :<A-J> [paredit.api.barf_backwards "Barf backwards"]
-                  :<A-K> [paredit.api.barf_forwards "Barf forwards"]
-                  :<A-L> [paredit.api.slurp_forwards "Slurp forwards"]
-
-                  :<localleader>w
-                  [(fn []
-                     (paredit.cursor.place_cursor
-                       (paredit.wrap.wrap_element_under_cursor "( " ")")
-                       {:placement :inner_start :mode :insert}))
-                   "Wrap element insert head"]
-
-                  :<localleader>W
-                  [(fn []
-                     (paredit.cursor.place_cursor
-                       (paredit.wrap.wrap_element_under_cursor "(" ")")
-                       {:placement :inner_end :mode :insert}))
-                   "Wrap element insert tail"]}
-                 :indent {:enabled true}})))}
-
+              (paredit.setup {:keys {:<A-H> [paredit.api.slurp_backwards
+                                             "Slurp backwards"]
+                                     :<A-J> [paredit.api.barf_backwards
+                                             "Barf backwards"]
+                                     :<A-K> [paredit.api.barf_forwards
+                                             "Barf forwards"]
+                                     :<A-L> [paredit.api.slurp_forwards
+                                             "Slurp forwards"]
+                                     :<localleader>w [(fn []
+                                                        (paredit.cursor.place_cursor (paredit.wrap.wrap_element_under_cursor "( "
+                                                                                                                             ")")
+                                                                                     {:placement :inner_start
+                                                                                      :mode :insert}))
+                                                      "Wrap element insert head"]
+                                     :<localleader>W [(fn []
+                                                        (paredit.cursor.place_cursor (paredit.wrap.wrap_element_under_cursor "("
+                                                                                                                             ")")
+                                                                                     {:placement :inner_end
+                                                                                      :mode :insert}))
+                                                      "Wrap element insert tail"]}
+                              :indent {:enabled true}})))}
  {1 :kylechui/nvim-surround
-  :event "VeryLazy"
+  :event :VeryLazy
   :config (fn []
             (let [surround (require :nvim-surround)]
               (surround.setup)))}]

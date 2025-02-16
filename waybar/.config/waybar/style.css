@@ -104,6 +104,7 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
+#custom-tailscale,
 #mpd {
   padding: 0 6px;
   color: @fg1;
@@ -127,6 +128,7 @@ button:hover {
 #clock,
 #battery,
 #scratchpad,
+#custom-tailscale,
 #battery.charging,
 #battery.plugged {
   background-color: @bg3;

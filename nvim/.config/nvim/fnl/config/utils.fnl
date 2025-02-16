@@ -1,30 +1,21 @@
-(local vim vim)
+(local mod {:opts {}})
 
-(local opts {})
+(tset mod.opts :default {:noremap true :unique true})
+(tset mod.opts :silent {:noremap true :silent true :unique true})
+(tset mod.opts :expr {:noremap true
+                      :unique true
+                      :expr true
+                      :replace_keycodes false})
 
-(tset opts :default {:noremap true :unique true})
-
-(tset opts :silent {:noremap true
-                    :silent true
-                    :unique true})
-
-(tset opts :expr {:noremap true
-                  :unique true
-                  :expr true
-                  :replace_keycodes false})
-
-(fn opt [key value]
+(fn mod.opt [key value]
   "Set a vim option"
   (tset vim.opt key value))
 
-(fn g [key value]
+(fn mod.g [key value]
   "Set a vim option"
   (tset vim.g key value))
 
-(fn keymap [mode key command opts]
+(fn mod.keymap [mode key command opts]
   (vim.api.nvim_set_keymap mode key command opts))
 
-{: opt
- : g
- : keymap
- :opts opts}
+mod

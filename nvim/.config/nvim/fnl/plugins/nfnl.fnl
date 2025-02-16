@@ -1,2 +1,1 @@
-[{1 :olical/nfnl
-  :lazy false}]
+[{1 :olical/nfnl :lazy false}]
