@@ -16,16 +16,18 @@ prompt_kyle_setup () {
   then
     local base_prompt="%B%F{$prompt_kyle_root}%m%k "
   else
-    local base_prompt="%B%F{$prompt_kyle_user}%n@%m%k "
+    local base_prompt="%B%F{$prompt_kyle_user}%m%k "
   fi
   local post_prompt="%b%f%k"
+
+  local error_prompt="%B%(?..[%?%1v] )"
 
   #setopt noxtrace localoptions
 
   local path_prompt="%B%F{$prompt_kyle_prompt}%1~"
-  typeset -g PS1="$base_prompt$path_prompt %# $post_prompt"
-  typeset -g PS2="$base_prompt$path_prompt %_> $post_prompt"
-  typeset -g PS3="$base_prompt$path_prompt ?# $post_prompt"
+  typeset -g PS1="$error_prompt$base_prompt$path_prompt %# $post_prompt"
+  typeset -g PS2="$error_prompt$base_prompt$path_prompt %_> $post_prompt"
+  typeset -g PS3="$error_prompt$base_prompt$path_prompt ?# $post_prompt"
 }
 
 prompt_kyle_setup "$@"
