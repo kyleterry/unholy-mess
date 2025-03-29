@@ -1,0 +1,2 @@
+-- [nfnl] Compiled from fnl/user/plugins/conform.fnl by https://github.com/Olical/nfnl, do not edit.
+return {"stevearc/conform.nvim", event = {"BufReadPre", "BufNewFile"}, opts = {formatters_by_ft = {fennel = {"fnlfmt"}, go = {"gofumpt"}, lua = {"stylua"}, tf = {"tfmt"}, terraform = {"tfmt"}, hcl = {"tfmt"}}, format_on_save = {lsp_fallback = true, timeout_ms = 500, async = false}, formatters = {tfmt = {command = "tofu", args = {"fmt", "-"}, stdin = true}}}}

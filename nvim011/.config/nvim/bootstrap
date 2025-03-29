@@ -1,0 +1,9 @@
+#!/bin/bash
+
+mkdir -p lua/user/plugins
+
+for fnl_path in init.fnl fnl/user/lazy.fnl fnl/user/plugins/nfnl.fnl; do
+  echo "compiling ${fnl_path}"
+  lua_path="$(sed -E 's|^fnl(/.*)\.fnl$|lua\1.lua|'<<<"${fnl_path}")"
+  fennel --compile --correlate "${fnl_path}" > "${lua_path}"
+done
