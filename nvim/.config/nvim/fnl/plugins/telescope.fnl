@@ -1,3 +1,9 @@
+(local core (require :nfnl.core))
+
+(fn with-theme [name tbl]
+  (let [theme-tbl {:theme name}]
+    (core.merge! theme-tbl tbl)))
+
 [{1 :nvim-telescope/telescope.nvim
   :dependencies [:nvim-telescope/telescope-ui-select.nvim
                  :nvim-telescope/telescope-live-grep-args.nvim
@@ -7,6 +13,7 @@
             (let [telescope (require :telescope)
                   builtin (require :telescope.builtin)
                   themes (require :telescope.themes)
+                  theme :ivy
                   actions (require :telescope.actions)
                   km vim.keymap.set
                   mappings {:i {:<esc> actions.close}}]
@@ -33,11 +40,14 @@
                                                     :previewer false
                                                     :sort_lastused true
                                                     :theme :ivy}
-                                          :live_grep {:theme :ivy}
+                                          ; :live_grep {:theme :ivy}
+                                          :live_grep (with-theme theme nil)
                                           :grep_string {:theme :ivy}
                                           :help_tags {:theme :ivy}
-                                          :commands {:theme :ivy
-                                                     :previewer false}
+                                          ; :commands {:theme :ivy
+                                          ;            :previewer false}
+                                          :commands (with-theme theme
+                                                      {:previewer false})
                                           :git_status {:theme :ivy}
                                           :lsp_document_symbols {:theme :ivy}}})
               (km :n :<leader>ff builtin.find_files

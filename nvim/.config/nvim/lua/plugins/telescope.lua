@@ -1,12 +1,18 @@
 -- [nfnl] Compiled from fnl/plugins/telescope.fnl by https://github.com/Olical/nfnl, do not edit.
+local core = require("nfnl.core")
+local function with_theme(name, tbl)
+  local theme_tbl = {theme = name}
+  return core["merge!"](theme_tbl, tbl)
+end
 local function _1_()
   local telescope = require("telescope")
   local builtin = require("telescope.builtin")
   local themes = require("telescope.themes")
+  local theme = "ivy"
   local actions = require("telescope.actions")
   local km = vim.keymap.set
   local mappings = {i = {["<esc>"] = actions.close}}
-  telescope.setup({defaults = {file_ignore_patterns = {"node_modules"}, vimgrep_arguments = {"rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--iglob", "!.git", "--hidden"}, mappings = mappings}, extensions = {["ui-select"] = {themes.get_dropdown({})}}, pickers = {find_files = {find_command = {"rg", "--files", "--iglob", "!.git", "--hidden"}, theme = "ivy"}, buffers = {mappings = {i = {["<c-d>"] = actions.delete_buffer}}, sort_lastused = true, theme = "ivy", previewer = false}, live_grep = {theme = "ivy"}, grep_string = {theme = "ivy"}, help_tags = {theme = "ivy"}, commands = {theme = "ivy", previewer = false}, git_status = {theme = "ivy"}, lsp_document_symbols = {theme = "ivy"}}})
+  telescope.setup({defaults = {file_ignore_patterns = {"node_modules"}, vimgrep_arguments = {"rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--iglob", "!.git", "--hidden"}, mappings = mappings}, extensions = {["ui-select"] = {themes.get_dropdown({})}}, pickers = {find_files = {find_command = {"rg", "--files", "--iglob", "!.git", "--hidden"}, theme = "ivy"}, buffers = {mappings = {i = {["<c-d>"] = actions.delete_buffer}}, sort_lastused = true, theme = "ivy", previewer = false}, live_grep = with_theme(theme, nil), grep_string = {theme = "ivy"}, help_tags = {theme = "ivy"}, commands = with_theme(theme, {previewer = false}), git_status = {theme = "ivy"}, lsp_document_symbols = {theme = "ivy"}}})
   km("n", "<leader>ff", builtin.find_files, {noremap = true, desc = "[f]ind [f]iles"})
   local function _2_()
     return builtin.live_grep({search = "", only_sort_text = true, shorten_path = true})

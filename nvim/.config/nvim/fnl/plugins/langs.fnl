@@ -13,6 +13,13 @@
   :config (fn []
             (let [csharp (require :csharp)]
               (csharp.setup {})))}
+ {1 :hat0uma/csvview.nvim :lazy true :ft [:csv]}
+ ; {1 :glebzlat/arduino-nvim
+ ;  :lazy true
+ ;  :ft [:arduino]
+ ;  :config (fn []
+ ;            (let [arduino (require :arduino-nvim)]
+ ;              (arduino.setup {:default_fqbn "esp8266:esp8266"})))}
  {1 :jamespeapen/swayconfig.vim :lazy true :ft [:swayconfig]}
  {1 :gentoo/gentoo-syntax :lazy false}
  {1 :lukas-reineke/headlines.nvim
