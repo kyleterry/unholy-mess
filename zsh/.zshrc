@@ -3,13 +3,18 @@
 bindkey -e
 
 fpath=("${HOME}/.config/zsh-prompts" "$fpath[@]")
+fpath=("${HOME}/.config/zsh-plugins" "$fpath[@]")
 
+zmodload zsh/complist
 autoload -U compinit promptinit
 
 compinit
 promptinit
 
 setopt correctall
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
 
 autoload -Uz vcs_info
 precmd() {
@@ -26,14 +31,7 @@ local home_manager_vars="${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
 source <(fzf --zsh)
 
-export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-export MANWIDTH=120
-
 alias vim='nvim'
-
-# PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
 
 zsh_d="$(fd --glob '*.zsh' ${HOME}/.config/zsh.d)"
 zsh_scripts=($(echo ${zsh_d} | tr '\n' ' '))
@@ -44,9 +42,19 @@ done
 
 prompt kyle
 
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
+
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
+
 export XDG_CURRENT_DESKTOP=sway
 
-# [[ "$(tty)" == "/dev/tty1" ]] && exec dbus-run-session sway
 if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] ; then
   exec dbus-run-session sway
 fi
+autoload -U +X compinit
+compinit
+autoload -U +X bashcompinit
+bashcompinit

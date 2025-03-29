@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${PATH}"
-
 eval "$(dircolors -b /etc/DIR_COLORS)"
 alias ls="ls --color=auto"
 
@@ -16,5 +14,3 @@ show_virtual_env() {
 }
 
 PS1='$(show_virtual_env)'$PS1
-
-source "${HOME}/.config/zsh-plugins/zsh-completion-sync.plugin.zsh"
