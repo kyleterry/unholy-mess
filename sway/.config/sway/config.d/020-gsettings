@@ -1,0 +1,16 @@
+# vim:filetype=swayconfig
+
+exec_always gsettings set org.gnome.desktop.interface {
+	gtk-theme           'Adwaita'
+	icon-theme          'Adwaita'
+	gtk-color-scheme	  'dark'
+	font-name           "$font $font_size"
+	monospace-font-name	"$font $font_size"
+	cursor-theme        'Adwaita'
+	cursor-size	        '20'
+}
+
+seat seat0 {
+	xcursor_theme Adwaita 20
+	hide_cursor   30000
+}

@@ -1,0 +1,6 @@
+# vim:filetype=swayconfig
+
+set {
+  $font      pango: Terminus
+  $font_size 12
+}

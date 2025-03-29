@@ -1,5 +1,7 @@
 # vim:filetype=swayconfig
 
+include ~/.config/sway/config.d/*
+
 set {
   $mod Mod4
 
@@ -10,53 +12,12 @@ set {
 
   $term      alacritty
   $menu      rofi -show run | xargs swaymsg exec --
-  $font      pango: Terminus
-  $font_size 12
   $locker    swaylock -fF -c 1d2021
-
-	$black     #282828
-	$red       #cc241d
-	$yellow		 #d79921
-	$brred		 #fb4934
-	$white     #c7ab7a
-	$focused   $white
-	$inactive	 $yellow
-	$unfocused $black
-	$urgent    $yellow
 }
 
 smart_borders on
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
-
-output eDP-1 scale 2
-
-input * {
-  xkb_options caps:ctrl_modifier
-}
-
-input type:touchpad {
-  tap              disabled
-  dwt              enabled
-  natural_scroll   enabled
-  accel_profile    adaptive
-  middle_emulation disabled
-}
-
-exec_always gsettings set org.gnome.desktop.interface {
-	gtk-theme           'Adwaita'
-	icon-theme          'Adwaita'
-	gtk-color-scheme	  'dark'
-	font-name           "$font $font_size"
-	monospace-font-name	"$font $font_size"
-	cursor-theme        'Adwaita'
-	cursor-size	        '20'
-}
-
-seat seat0 {
-	xcursor_theme Adwaita 20
-	hide_cursor   30000
-}
 
 bindsym --to-code {
   $mod+Return    exec $term
@@ -124,22 +85,6 @@ bindsym --to-code {
   $mod+a focus parent
 }
 
-# media key bindings
-bindsym --locked {
-  XF86AudioLowerVolume  exec pactl set-sink-volume @DEFAULT_SINK@ -2%
-  XF86AudioRaiseVolume  exec pactl set-sink-volume @DEFAULT_SINK@ +2%
-  XF86AudioMute         exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-  XF86MonBrightnessUp   exec xbacklight -inc 8
-  XF86MonBrightnessDown exec xbacklight -dec 8
-}
-
-bindsym --to-code {
-  XF86AudioPlay exec playerctl play-pause
-  XF86AudioStop exec playerctl stop
-  XF86AudioNext exec playerctl next
-  XF86AudioPrev exec playerctl prev
-}
-
 bindsym --to-code {
   # move the currently focused window to the scratchpad
   $mod+Shift+minus move scratchpad
@@ -183,17 +128,6 @@ for_window [app_id="firefox"] inhibit_idle fullscreen
 for_window [app_id="zen"] inhibit_idle fullscreen
 assign [app_id="firefox"] → 1
 assign [app_id="zen"] → 1
-
-for_window [class="^Steam$" title="^Friends$"] floating enable
-for_window [class="^Steam$" title="Steam - News"] floating enable
-for_window [class="^Steam$" title=".* - Chat"] floating enable
-for_window [class="^Steam$" title="^Settings$"] floating enable
-for_window [class="^Steam$" title=".* - event started"] floating enable
-for_window [class="^Steam$" title=".* CD key"] floating enable
-for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
-for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
-for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
-for_window [title="^Steam Keyboard$"] floating enable
 
 titlebar_border_thickness 0
 titlebar_padding 10 1

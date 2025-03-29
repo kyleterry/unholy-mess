@@ -19,9 +19,10 @@
   "modules-right": [
     "sway/scratchpad",
     "custom/tailscale",
+    "custom/weather",
     "network",
     "battery",
-    "pulseaudio",
+    "wireplumber",
     "clock"
   ],
 
@@ -64,13 +65,14 @@
   "network": {
     "interface": "wlan0",
     "format": "{ifname}",
+    "format-ethernet" : "eth {ifname}",
     "format-wifi" : "wifi {essid}",
     "format-disconnected" : "no network",
     "interval": 5,
     "tooltip": false
   },
 
-  "pulseaudio": {
+  "wireplumber": {
     "scroll-step": 5,
     "max-volume": 150,
     "format": "vol {volume}%",
@@ -80,7 +82,7 @@
     "tooltip": false
   },
 
-  "custom/tailscale" : {
+  "custom/tailscale": {
     "exec": "~/.local/bin/waybar-tailscale --status",
     "on-click": "exec ~/.local/bin/waybar-tailscale --toggle",
     "exec-on-event": true,
@@ -92,5 +94,13 @@
     "tooltip": true,
     "return-type": "json",
     "interval": 3,
+  },
+
+  "custom/weather": {
+    "exec": "~/.local/bin/weather get -f",
+    "format": "temp {}c",
+    "return-type": "json",
+    "tooltip": false,
+    "interval": 120,
   }
 }

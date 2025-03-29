@@ -1,0 +1,12 @@
+# vim:filetype=swayconfig
+
+for_window [app_id="^Steam$" title="^Friends$"] floating enable
+for_window [app_id="^Steam$" title="Steam - News"] floating enable
+for_window [app_id="^Steam$" title=".* - Chat"] floating enable
+for_window [app_id="^Steam$" title="^Settings$"] floating enable
+for_window [app_id="^Steam$" title=".* - event started"] floating enable
+for_window [app_id="^Steam$" title=".* CD key"] floating enable
+for_window [app_id="^Steam$" title="^Steam - Self Updater$"] floating enable
+for_window [app_id="^Steam$" title="^Screenshot Uploader$"] floating enable
+for_window [app_id="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
+for_window [title="^Steam Keyboard$"] floating enable

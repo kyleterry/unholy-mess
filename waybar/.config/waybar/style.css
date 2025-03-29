@@ -47,7 +47,12 @@ window#waybar.hidden {
 
 tooltip {
   background: @bg1;
-  border: 2px solid #7c6f64;
+  border: 1px solid @fg1;
+  color: @fg1;
+}
+
+tooltip label {
+  color: @fg1;
 }
 
 window#waybar.alacritty {
@@ -96,7 +101,8 @@ button:hover {
 #temperature,
 #backlight,
 #network,
-#pulseaudio,
+#custom-tailscale,
+#wireplumber,
 #wireplumber,
 #custom-media,
 #tray,
@@ -104,7 +110,7 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
-#custom-tailscale,
+#custom-weather,
 #mpd {
   padding: 0 6px;
   color: @fg1;
@@ -128,7 +134,7 @@ button:hover {
 #clock,
 #battery,
 #scratchpad,
-#custom-tailscale,
+#custom-weather,
 #battery.charging,
 #battery.plugged {
   background-color: @bg3;
@@ -201,7 +207,8 @@ label:focus {
 }
 
 #network,
-#pulseaudio,
+#wireplumber,
+#custom-tailscale,
 #wireplumber {
   /* background-color: #ddc7a1; */
   background-color: @fg1;
@@ -209,7 +216,7 @@ label:focus {
 }
 
 #network.disconnected,
-#pulseaudio.muted,
+#wireplumber.muted,
 #wireplumber.muted {
   background-color: @red2;
 }
