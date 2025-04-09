@@ -27,3 +27,6 @@ dynamic_title = true
 [window.padding]
 x = 2
 y = 2
+
+[env]
+TERM = "xterm-256color"
