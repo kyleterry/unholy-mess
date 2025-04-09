@@ -1,12 +1,13 @@
-margin=10,10,10
-width=200
+margin=6
+width=300
 border-size=2
 border-radius=0
-default-timeout=0
+default-timeout=6000
 font=JetBrains Mono 10
 history=1
+format=<b>%a ⏵</b> %s\n%b
 
-background-color=#282828e0
+background-color=#282828
 text-color=#ebdbb2
 border-color=#ebdbb2
 progress-color=source #cc241d
@@ -15,3 +16,4 @@ progress-color=source #cc241d
 background-color=#fb4934
 text-color=#282828
 border-color=#282828
+default-timeout=0
