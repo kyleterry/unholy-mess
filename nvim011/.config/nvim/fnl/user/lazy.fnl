@@ -8,4 +8,3 @@
 
 (let [lazy (require :lazy)]
   (lazy.setup :user.plugins))
-

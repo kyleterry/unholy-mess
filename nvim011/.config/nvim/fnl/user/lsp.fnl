@@ -1,30 +1,62 @@
-(local lsp vim.lsp)
+(vim.lsp.config "*"
+                {:capabilities ((. (require :blink.cmp) :get_lsp_capabilities))})
 
-(lsp.config "*"
-            {:capabilities ((. (require :blink.cmp) :get_lsp_capabilities))})
-
-(set lsp.config.gopls {:cmd [:gopls]
-                       :root_markers [:go.mod]
-                       :filetypes [:go :gomod]})
+(tset vim.lsp.config :gopls
+      {:cmd [:gopls]
+       :root_markers [:go.mod]
+       :filetypes [:go :gomod]
+       :settings {:gopls {:experimentalPostfixCompletions true
+                          :gofumpt true
+                          :codelenses {:gc_details true
+                                       :generate true
+                                       :test true
+                                       :tidy true
+                                       :upgrade_dependency true}
+                          :analyses {:unusedparams true
+                                     :unusedwrite true
+                                     :nilness true
+                                     :useany true
+                                     :shadow true}
+                          :hints {:assignVariableTypes true
+                                  :compositeLiteralTypes true
+                                  :compositeListeralFields true
+                                  :contantValues true
+                                  :functionTypeParameters true
+                                  :rangeVariableTypes true}
+                          :usePlaceholders true
+                          :completeUnimported true
+                          :semanticTokens true
+                          :staticcheck true}}})
 
 ;
 ; (set lsp.config.goimports {:cmd [:goimports]
 ;                            :root_markers [:go.mod]
 ;                            :filetypes [:go :gomod]})
 
-(set lsp.config.luals
-     {:cmd [:lua-language-server]
-      :root_markers [:.luarc.json :.luarc.jsonc]
-      :filetypes [:lua]
-      :settings {:Lua {:runtime {:version :LuaJIT}}}})
+(tset vim.lsp.config :luals
+      {:cmd [:lua-language-server]
+       :root_markers [:.luarc.json :.luarc.jsonc]
+       :filetypes [:lua]
+       :settings {:Lua {:runtime {:version :LuaJIT}}}})
 
-(lsp.enable [:gopls :goimports :luals])
+(vim.lsp.enable [:gopls :luals])
 
 (vim.api.nvim_create_autocmd :LspAttach
-                             {:callback (fn [ev]
-                                          (let [client (lsp.get_client_by_id ev.data.client_id)]
+                             {:group (vim.api.nvim_create_augroup :custom.lsp
+                                                                  {})
+                              :callback (fn [ev]
+                                          (let [client (vim.lsp.get_client_by_id ev.data.client_id)]
                                             (when (client:supports_method :textDocument/completion)
-                                              (lsp.completion.enable true
-                                                                     client.id
-                                                                     ev.buf
-                                                                     {:autotrigger true}))))})
+                                              (vim.lsp.completion.enable true
+                                                                         client.id
+                                                                         ev.buf
+                                                                         {:autotrigger true}))
+                                            (when (and (not (client:supports_method :textDocument/willSaveWaitUntil))
+                                                       (client:supports_method :textDocument/formatting))
+                                              (vim.api.nvim_create_autocmd :BufWritePre
+                                                                           {:group (vim.api.nvim_create_augroup :custom.lsp
+                                                                                                                {:clear false})
+                                                                            :buffer ev.buf
+                                                                            :callback #(vim.lsp.buf.format {:bufnr ev.buf
+                                                                                                            :id client.id
+                                                                                                            :timeout_ms 1000})}))))})

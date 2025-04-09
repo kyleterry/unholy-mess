@@ -26,5 +26,6 @@
                                               :GruvboxBlueSign {:bg ""}
                                               :GruvboxAquaSign {:bg ""}}}]
               (gruvbox.setup gruvbox-config)
-              (vim.cmd "set background=dark")
+              (set vim.o.termguicolors true)
+              (set vim.o.background :dark)
               (vim.cmd "colorscheme gruvbox")))}]
