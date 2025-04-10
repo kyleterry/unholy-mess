@@ -14,3 +14,5 @@ show_virtual_env() {
 }
 
 PS1='$(show_virtual_env)'$PS1
+
+source <(fzf --zsh)
