@@ -1,0 +1,8 @@
+configuration {
+  modi: "window,drun,run,ssh";
+  font: "Terminus 12";
+  combi-modi: "window,drun,run,ssh";
+  terminal: "rofi-sensible-terminal";
+}
+
+@theme "/usr/share/rofi/themes/gruvbox-dark-soft.rasi"
