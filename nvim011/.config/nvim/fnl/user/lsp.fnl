@@ -28,18 +28,21 @@
                           :semanticTokens true
                           :staticcheck true}}})
 
-;
-; (set lsp.config.goimports {:cmd [:goimports]
-;                            :root_markers [:go.mod]
-;                            :filetypes [:go :gomod]})
-
 (tset vim.lsp.config :luals
       {:cmd [:lua-language-server]
        :root_markers [:.luarc.json :.luarc.jsonc]
        :filetypes [:lua]
        :settings {:Lua {:runtime {:version :LuaJIT}}}})
 
-(vim.lsp.enable [:gopls :luals])
+(tset vim.lsp.config :fennel_language_server
+      {:cmd [:fennel-language-server]
+       :root_markers [:.git]
+       :filetypes [:fennel]
+       :settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)
+                                       :checkThirdParty false}
+                           :diagnostics {:globals [:vim]}}}})
+
+(vim.lsp.enable [:gopls :luals :fennel_language_server])
 
 (vim.api.nvim_create_autocmd :LspAttach
                              {:group (vim.api.nvim_create_augroup :custom.lsp

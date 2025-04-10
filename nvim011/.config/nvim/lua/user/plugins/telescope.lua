@@ -12,7 +12,7 @@ local function _3_()
   local telescope = require("telescope")
   local actions = require("telescope.actions")
   local mappings = {i = {["<esc>"] = actions.close}}
-  return telescope.setup({defaults = {mappings = mappings, borderchars = {"\226\148\128", "\226\148\130", "\226\148\128", "\226\148\130", "\226\148\140", "\226\148\144", "\226\148\152", "\226\148\148"}, layout_strategy = "bottom_pane", layout_config = {bottom_pane = {prompt_position = "top", width = {padding = 0}, height = 50, preview_width = 0.5}}, sorting_strategy = "ascending"}, pickers = {find_files = {find_command = {"rg", "--files", "--iglob", "!.git", "--hidden"}}}})
+  return telescope.setup({defaults = {mappings = mappings, borderchars = {"\226\148\128", "\226\148\130", "\226\148\128", "\226\148\130", "\226\148\140", "\226\148\144", "\226\148\152", "\226\148\148"}, vimgrep_arguments = {"rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--iglob", "!.git", "--hidden"}, layout_strategy = "bottom_pane", layout_config = {bottom_pane = {prompt_position = "top", width = {padding = 0}, height = 50, preview_width = 0.5}}, sorting_strategy = "ascending"}, pickers = {find_files = {find_command = {"rg", "--files", "--iglob", "!.git", "--hidden"}}}})
 end
 local function _4_()
   return telescope_keys()

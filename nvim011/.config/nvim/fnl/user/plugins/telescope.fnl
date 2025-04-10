@@ -27,6 +27,16 @@
                                                         "┐"
                                                         "┘"
                                                         "└"]
+                                          :vimgrep_arguments [:rg
+                                                              :--color=never
+                                                              :--no-heading
+                                                              :--with-filename
+                                                              :--line-number
+                                                              :--column
+                                                              :--smart-case
+                                                              :--iglob
+                                                              :!.git
+                                                              :--hidden]
                                           :layout_strategy :bottom_pane
                                           :layout_config {:bottom_pane {:prompt_position :top
                                                                         :width {:padding 0}
