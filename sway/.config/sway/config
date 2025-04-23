@@ -12,7 +12,7 @@ set {
 
   $term      alacritty
   $menu      rofi -show run | xargs swaymsg exec --
-  $locker    swaylock -fF -c 1d2021
+  $locker    swaylock -fF -c 1d2021 --grace 10 --fade-in 10
 }
 
 smart_borders on
